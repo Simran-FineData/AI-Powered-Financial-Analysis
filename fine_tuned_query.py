@@ -22,7 +22,7 @@ test_texts = [
     "What is Apple's % Growth in PBT 2024?",
     "Apple's % Change in Net Tangible Asset Value 2024?",
     "What is Tesla's Year-over-Year Revenue Growth for Q4 2024?",
-    "What is 10X Genomics's net margin (based on p&l) in 2024?",
+    "What is 10X Genomics's Net Margin % (Based on P&L) in 2024?",
     "What is Apple's Cash Available to Satisfy Finance Providers 2024?",
     "What is Apple's Cash Flow Availability before Financing Yield 2024?",
     "What is Apple's Cash Flow Available to Satisfy Finance Providers Yield 2024?",
@@ -65,6 +65,8 @@ test_texts = [
     "What is Apple's Dividend Yield 2024?",
     "What is Apple's Dow Jones Return 2024?",
     "What is Apple's Earning Before Interest and Tax (EBIT) 2024?",
+    "what was ebit % for Coca cola in year 2022?",
+    "What is 10X Genomics's net margin % (based on p&l) in 2024?",
 ]
 
 for text in test_texts:

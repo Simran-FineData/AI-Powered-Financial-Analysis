@@ -68,11 +68,17 @@ patterns = [
     {"label": "FINANCIAL_TERM", "pattern": "Year-over-Year Revenue Growth"},
     {"label": "FINANCIAL_TERM", "pattern": "Net Tangible Asset Value"},
 ]
+
 financial_parameters_data = refineutil.get_parameters()
 financial_parameters = []
 for parameter in financial_parameters_data:
     financial_parameters.append(parameter["item_name"].split("##")[0].lower())
     patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"]})
+    patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"].lower()})
+    patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"].upper()})
+    patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"].capitalize()})
+    patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"].casefold()})
+    patterns.append({"label":"FINANCIAL_TERM","pattern":parameter["item_name"].swapcase()})
 
 ruler.add_patterns(patterns)
 # Get the NER pipeline
@@ -84,12 +90,22 @@ ner.add_label("ORG")
 
 # Convert training data to spaCy format
 examples = [Example.from_dict(nlp.make_doc(text), annotations) for text, annotations in TRAIN_DATA]
+examples_lower = [Example.from_dict(nlp.make_doc(text.lower()), annotations) for text, annotations in TRAIN_DATA]
+examples_upper = [Example.from_dict(nlp.make_doc(text.upper()), annotations) for text, annotations in TRAIN_DATA]
+examples_capitalize = [Example.from_dict(nlp.make_doc(text.capitalize()), annotations) for text, annotations in TRAIN_DATA]
+examples_casefold = [Example.from_dict(nlp.make_doc(text.casefold()), annotations) for text, annotations in TRAIN_DATA]
+examples_swapcase = [Example.from_dict(nlp.make_doc(text.swapcase()), annotations) for text, annotations in TRAIN_DATA]
 
 # Train model
 optimizer = nlp.resume_training()
-for itn in range(100):  # Increase iterations
+for itn in range(30):  # Increase iterations
     losses = {}
     nlp.update(examples, drop=0.2, losses=losses)  # Lower dropout
+    nlp.update(examples_lower, drop=0.2, losses=losses)  # Lower dropout
+    nlp.update(examples_upper, drop=0.2, losses=losses)  # Lower dropout
+    nlp.update(examples_capitalize, drop=0.2, losses=losses)  # Lower dropout
+    nlp.update(examples_casefold, drop=0.2, losses=losses)  # Lower dropout
+    nlp.update(examples_swapcase, drop=0.2, losses=losses)  # Lower dropout
     print(f"Iteration {itn}, Losses: {losses}")
 
 

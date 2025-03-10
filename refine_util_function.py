@@ -39,7 +39,7 @@ def init_db_query():
 
 # 📌 Initialize Database
 def init_db():
-    conn = sqlite3.connect("financial_queries.db")
+    conn = sqlite3.connect("financial_queries_trained.db")
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS queries (
@@ -53,7 +53,7 @@ def init_db():
 
 #  Check if Query Exists in DB
 def fetch_from_db():
-    conn = sqlite3.connect("financial_queries.db")
+    conn = sqlite3.connect("financial_queries_trained.db")
     cursor = conn.cursor()
     cursor.execute("SELECT query,response FROM queries")
     result = cursor.fetchall()
@@ -73,7 +73,7 @@ def fetch_from_db_query():
 
 #  Store Query & Response in DB
 def save_to_db(query, response):
-    conn = sqlite3.connect("financial_queries.db")
+    conn = sqlite3.connect("financial_queries_trained.db")
     cursor = conn.cursor()
     #print(query)
     #print(response)
